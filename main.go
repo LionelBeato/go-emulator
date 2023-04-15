@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"gioui.org/app"
+	"gioui.org/unit"
 )
 
 /*
@@ -28,9 +29,11 @@ func main() {
 	fmt.Println(sum)
 
 	go func() {
-		w := app.NewWindow()
+		w := app.NewWindow(
+			app.Size(unit.Dp(62 * 10), unit.Dp(32 * 10)),
+		)
 		err := run(w)
-		if err !=nil {
+		if err != nil {
 			log.Fatal(err)
 		}
 		os.Exit(0)
