@@ -35,7 +35,7 @@ func run(w *app.Window) error {
 			for row := range screen {
 				for col := range screen[row] {
 					if col > 0 {
-						// println(col)
+						println(col)
 						clip.Rect{Max: image.Pt(row, col)}.Push(&ops).Pop()
 						paint.ColorOp{Color: black}.Add(&ops)
 						paint.PaintOp{}.Add(&ops)

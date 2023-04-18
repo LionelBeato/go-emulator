@@ -54,7 +54,6 @@ func OP_DXYN() {
 	xPos := registers[VX].value % 64
 	yPos := registers[VY].value % 32
 	height := opCode & 0x000F
-	println("the height is %v\n", height)
 
 	registers[0xF].value = 0
 
@@ -66,10 +65,11 @@ func OP_DXYN() {
 			screenPixel := screen[(int(yPos) + row)][int(xPos)+col]
 			if spritePixel > 0 {
 				if screenPixel > 0 {
-					registers[0xF].value = uint8(1)
+					registers[0xF].value = 1
 				}
 				// ^ is golangs's XOR for ints
 				screen[(int(yPos) + row)][int(xPos)+col] = screenPixel ^ 0xFFFFFF
+				println(screen[(int(yPos) + row)][int(xPos)+col])
 			}
 		}
 	}
