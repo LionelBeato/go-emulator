@@ -1,15 +1,7 @@
 package main
 
-func add(a, b int) int {
-	return a + b
-}
-
-type memory struct {
-	mem   []byte
-	stack []byte
-}
-
-var font []byte = []byte{
+// font memory
+var fontSet []byte = []byte{
 	0xF0, 0x90, 0x90, 0x90, 0xF0, // 0
 	0x20, 0x60, 0x20, 0x20, 0x70, // 1
 	0xF0, 0x10, 0xF0, 0x80, 0xF0, // 2
@@ -29,11 +21,5 @@ var font []byte = []byte{
 }
 
 var e = 80
-var mem [4096]byte
-
-// func init() {
-// 	for i := range font {
-// 		mem[e] = 
-// 		e++
-// 	}
-// }
+var stack []uint16
+var mem [4096]uint16

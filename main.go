@@ -23,14 +23,47 @@ CHIP-8 has the following components:
 - VF is also used as a flag register; many instructions will set it to either 1 or 0 based on some rule, for example using it as a carry flag
 */
 
+func fetch() {
+	opCode = (mem[currentInstruction] >> 8) | (mem[currentInstruction+1])
+	currentInstruction += 2
+}
+
+func decode() {
+	switch (opCode & 0xF000) >> 12 {
+	case 0x0:
+		OP_00E0()
+	case 0x1:
+		OP_1NNN()
+	case 0x6:
+		OP_6xNN()
+	case 0x7:
+		OP_7xNN()
+	case 0xA:
+		OP_ANNN()
+	case 0xD:
+		OP_DXYN()
+	}
+}
+
+func execute(OP_CODE byte) {
+
+}
+
 func main() {
 	fmt.Println("Hello, World!")
-	sum := add(1, 2)
-	fmt.Println(sum)
+
+	for i := range fontSet {
+		mem[e] = uint16(i)
+		e++
+	}
+
+	x := EightBitRegister{}.test()
+	print(x)
 
 	go func() {
+
 		w := app.NewWindow(
-			app.Size(unit.Dp(62 * 10), unit.Dp(32 * 10)),
+			app.Size(unit.Dp(62*10), unit.Dp(32*10)),
 		)
 		err := run(w)
 		if err != nil {
@@ -38,5 +71,28 @@ func main() {
 		}
 		os.Exit(0)
 	}()
+	loadRom("./ibm.ch8")
+	// for i, v := range mem {
+	// 	println("current memory:", i, v)
+	// }
+
 	app.Main()
+	cycle()
+}
+
+func cycle() {
+	for i := 0; i < 100; i++ {
+		fetch()
+		decode()
+	}
+}
+
+func loadRom(fileName string) {
+	data, _ := os.ReadFile(fileName)
+	println(string(data), fileName)
+	for i := range data {
+		println(uint16(data[i]))
+		mem[0x200+i] = uint16(data[i])
+		println("current value in rom:", mem[0x200+i])
+	}
 }
