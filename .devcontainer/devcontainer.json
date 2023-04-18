@@ -1,0 +1,28 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/debian
+{
+	"name": "Go",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	// "image": "mcr.microsoft.com/devcontainers/base:bullseye",
+	"build": {
+		"dockerfile" : "Dockerfile"
+	},
+	"postStartCommand": "sudo apt update && sudo apt install -y gcc pkg-config libwayland-dev libx11-dev libx11-xcb-dev libxkbcommon-x11-dev libgles2-mesa-dev libegl1-mesa-dev libffi-dev libxcursor-dev libvulkan-dev && xhost + 127.0.0.1",
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {
+	// 	"desktop-lite": {
+	// 		"password": "vscode",
+	// 		"webPort": "6080",
+	// 		"vncPort": "5901"
+	// 	}
+	// }
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Configure tool-specific properties.
+	// "customizations": {},
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}
