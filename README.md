@@ -20,5 +20,4 @@ Alternatively, you may utilize this project's devcontainer (which has Go preconf
 - [Cowgod's Chip-8 Technical Reference](http://devernay.free.fr/hacks/chip8/C8TECH10.HTM#2.2)
 - [How to Write a Go Emulator by Tobias V Langhoff](https://tobiasvl.github.io/blog/write-a-chip-8-emulator/)
 
-- [^1]: Technically speaking, CHIP-8 implementations aren't emulators. Langhoff writes:
-    >*An emulator emulates physical hardware in software, but CHIP-8 isn’t a piece of hardware. To be pedantic, you’re writing a CHIP-8 interpreter.*
+- [^1]: Technically speaking, CHIP-8 implementations aren't emulators. Langhoff writes: *"An emulator emulates physical hardware in software, but CHIP-8 isn’t a piece of hardware. To be pedantic, you’re writing a CHIP-8 interpreter."*
