@@ -1,8 +1,8 @@
 package main
 
-type register interface {
-	test() string
-}
+// type register interface {
+// 	test() string
+// }
 
 type EightBitRegister struct {
 	label string
@@ -14,13 +14,13 @@ type SixteenBitRegister struct {
 	value uint16
 }
 
-func (e EightBitRegister) test() string {
-	return "test"
-}
+// func (e EightBitRegister) test() string {
+// 	return "test"
+// }
 
-func (e SixteenBitRegister) test() string {
-	return "test"
-}
+// func (e SixteenBitRegister) test() string {
+// 	return "test"
+// }
 
 /*
 16 8-bit (one byte) general-purpose variable
