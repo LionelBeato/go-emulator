@@ -2,6 +2,8 @@
 
 Go implementation of [CHIP-8](https://en.wikipedia.org/wiki/CHIP-8). Currently, the emulator[^1] can only render the contents of `ibm.ch8` with no interactions.
 
+Currently outputs the following in your terminal:
+
 ![](./ibm.png)
 
 # How to run
