@@ -6,7 +6,7 @@ Go implementation of [CHIP-8](https://en.wikipedia.org/wiki/CHIP-8). Currently, 
 
 # How to run
 
-If you have Go installed you may run this application with the following command in the root of this project at your terminal:
+If you have Go installed you may run this application with the following command at the root of this project:
 
 ```bash
 go run .
