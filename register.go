@@ -11,7 +11,7 @@ type EightBitRegister struct {
 
 type SixteenBitRegister struct {
 	label string
-	value int16
+	value uint16
 }
 
 func (e EightBitRegister) test() string {

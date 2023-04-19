@@ -19,6 +19,7 @@ import (
 // 64 x 32 multidimensional array representing the screen
 var screen [32][64]int
 
+// function for GUI down the line
 func run(w *app.Window) error {
 	// th := material.NewTheme(gofont.Collection())
 	var ops op.Ops

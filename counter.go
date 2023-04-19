@@ -1,3 +1,3 @@
 package main
 
-var currentInstruction uint16 = 0x200
+var currentInstruction int = 0x200

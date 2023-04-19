@@ -1,11 +1,9 @@
 package main
 
 import (
-	"fmt"
 	// "log"
+
 	"os"
-	// "gioui.org/app"
-	// "gioui.org/unit"
 )
 
 /*
@@ -22,18 +20,26 @@ CHIP-8 has the following components:
 - VF is also used as a flag register; many instructions will set it to either 1 or 0 based on some rule, for example using it as a carry flag
 */
 
+// fun fetch() {
+//     opCode = (memory[pc].toInt() shl 8) or (memory[pc + 1].toInt())
+//     pc =(pc + 2)
+// }
+
+// this resolves correctly
 func fetch() {
-	opCode = (mem[currentInstruction] >> 8) | (mem[currentInstruction+1])
-	currentInstruction += 2
-	// println("opcode, pc in fetch:", opCode, currentInstruction)
+	opCode = (mem[currentInstruction] << 8) | (mem[currentInstruction+1])
+	currentInstruction = (currentInstruction + 2)
+	// println(opCode)
+	// println(currentInstruction)
 }
 
+// this resolves correctly
 func decode() {
-	// var x = (opCode & 0xF000) >> 12
-	// println("value of opCode decode:", x)
-	switch 0xD {
+	code := (opCode & 0xF000)
+	// println("Value of opCode:", code)
+	// println("Value resolved:", code>>12)
+	switch code >> 12 {
 	case 0x0:
-		// println("clearing the screen")
 		OP_00E0()
 	case 0x1:
 		OP_1NNN()
@@ -44,25 +50,20 @@ func decode() {
 	case 0xA:
 		OP_ANNN()
 	case 0xD:
-		println("drawing the screen")
 		OP_DXYN()
 	}
 }
 
-func execute(OP_CODE byte) {
+// func execute(OP_CODE byte) {
 
-}
+// }
 
 func main() {
-	fmt.Println("Hello, World!")
 
 	for i := range fontSet {
-		mem[e] = uint16(i)
+		mem[e] = i
 		e++
 	}
-
-	x := EightBitRegister{}.test()
-	print(x)
 
 	// go func() {
 
@@ -75,20 +76,17 @@ func main() {
 	// 	}
 	// 	os.Exit(0)
 	// }()
-	loadRom("./ibm.ch8")
-	// for i, v := range mem {
-	// 	println("current memory:", i, v)
-	// }
+
+	loadRom("ibm.ch8")
 	cycle()
 
 	// screen/dislay
-	for row := range screen {
-		for cell := range screen[row] {
-			// println(cell)
+	for _, row := range screen {
+		for _, cell := range row {
 			if cell > 0 {
-				print("x")
+				print("▅▅")
 			} else {
-				print("o")
+				print("  ")
 			}
 		}
 		print("\n")
@@ -104,21 +102,11 @@ func cycle() {
 	}
 }
 
-// fun loadRom(fileName: String) {
-//     val file = File(fileName).inputStream().readBytes().asUByteArray()
-//     println(file)
-//     for (i in file.indices) {
-//         println("at index $i " + 0x200)
-//         memory[0x200 + i] = file[i]
-//     }
-// }
-
 func loadRom(fileName string) {
 	data, _ := os.ReadFile(fileName)
-	println(data, fileName)
+	// println(data, fileName)
 	for i, value := range data {
-		// x := 0x200 + i
-		println("value of hex:", value, i)
-		mem[0x200+i] = uint16(value)
+		// println("data:", int8(value))
+		mem[0x200+i] = int(value)
 	}
 }
