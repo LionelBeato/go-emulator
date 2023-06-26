@@ -3,7 +3,11 @@ package main
 import (
 	// "log"
 
+	"log"
 	"os"
+
+	"gioui.org/app"
+	"gioui.org/unit"
 )
 
 /*
@@ -29,8 +33,6 @@ CHIP-8 has the following components:
 func fetch() {
 	opCode = (mem[currentInstruction] << 8) | (mem[currentInstruction+1])
 	currentInstruction = (currentInstruction + 2)
-	// println(opCode)
-	// println(currentInstruction)
 }
 
 // this resolves correctly
@@ -59,40 +61,35 @@ func decode() {
 // }
 
 func main() {
-
 	for i := range fontSet {
 		mem[e] = i
 		e++
 	}
-
-	// go func() {
-
-	// 	w := app.NewWindow(
-	// 		app.Size(unit.Dp(62*10), unit.Dp(32*10)),
-	// 	)
-	// 	err := run(w)
-	// 	if err != nil {
-	// 		log.Fatal(err)
-	// 	}
-	// 	os.Exit(0)
-	// }()
-
+	go func() {
+		w := app.NewWindow(
+			app.Size(unit.Dp(62*10), unit.Dp(32*10)),
+		)
+		err := run(w)
+		if err != nil {
+			log.Fatal(err)
+		}
+		os.Exit(0)
+	}()
 	loadRom("ibm.ch8")
 	cycle()
+	// screen/display in terminal
+	// for _, row := range screen {
+	// 	for _, cell := range row {
+	// 		if cell > 0 {
+	// 			print("▅▅")
+	// 		} else {
+	// 			print("  ")
+	// 		}
+	// 	}
+	// 	print("\n")
+	// }
 
-	// screen/dislay
-	for _, row := range screen {
-		for _, cell := range row {
-			if cell > 0 {
-				print("▅▅")
-			} else {
-				print("  ")
-			}
-		}
-		print("\n")
-	}
-	// app.Main()
-
+	app.Main()
 }
 
 func cycle() {
@@ -104,9 +101,7 @@ func cycle() {
 
 func loadRom(fileName string) {
 	data, _ := os.ReadFile(fileName)
-	// println(data, fileName)
 	for i, value := range data {
-		// println("data:", int8(value))
 		mem[0x200+i] = int(value)
 	}
 }
