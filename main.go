@@ -29,17 +29,13 @@ CHIP-8 has the following components:
 //     pc =(pc + 2)
 // }
 
-// this resolves correctly
 func fetch() {
 	opCode = (mem[currentInstruction] << 8) | (mem[currentInstruction+1])
 	currentInstruction = (currentInstruction + 2)
 }
 
-// this resolves correctly
 func decode() {
 	code := (opCode & 0xF000)
-	// println("Value of opCode:", code)
-	// println("Value resolved:", code>>12)
 	switch code >> 12 {
 	case 0x0:
 		OP_00E0()
@@ -49,6 +45,15 @@ func decode() {
 		OP_6xNN()
 	case 0x7:
 		OP_7xNN()
+	case 0x8:
+		// switch (opCode & 0x00F) >> 12 {
+		// case 0x81:
+		// 	OP_8XY1()
+		// case 0x82:
+		// 	OP_8XY2()
+		// case 0x85:
+		// 	OP_8XY5()
+		// }
 	case 0xA:
 		OP_ANNN()
 	case 0xD:
@@ -61,13 +66,15 @@ func decode() {
 // }
 
 func main() {
+	arg := os.Args[1]
+
 	for i := range fontSet {
 		mem[e] = i
 		e++
 	}
 	go func() {
 		w := app.NewWindow(
-			app.Size(unit.Dp(62*10), unit.Dp(32*10)),
+			app.Size(unit.Dp(64*10), unit.Dp(32*10)),
 		)
 		err := run(w)
 		if err != nil {
@@ -75,20 +82,8 @@ func main() {
 		}
 		os.Exit(0)
 	}()
-	loadRom("ibm.ch8")
+	loadRom(arg)
 	cycle()
-	// screen/display in terminal
-	// for _, row := range screen {
-	// 	for _, cell := range row {
-	// 		if cell > 0 {
-	// 			print("▅▅")
-	// 		} else {
-	// 			print("  ")
-	// 		}
-	// 	}
-	// 	print("\n")
-	// }
-
 	app.Main()
 }
 

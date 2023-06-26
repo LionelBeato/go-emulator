@@ -32,11 +32,10 @@ func run(w *app.Window) error {
 
 			paint.Fill(&ops, black)
 
-
 			for x, row := range screen {
 				for y, col := range row {
 					if col > 0 {
-						// print("▅▅")
+						print("▅▅")
 						off := op.Offset(image.Pt(y*10, x*10)).Push(&ops)
 						cl := clip.Rect{Max: image.Pt(10, 10)}.Push(&ops)
 						paint.ColorOp{Color: white}.Add(&ops)
@@ -44,10 +43,10 @@ func run(w *app.Window) error {
 						off.Pop()
 						cl.Pop()
 					} else {
-						// print("  ")
+						print("  ")
 					}
 				}
-				// print("\n")
+				print("\n")
 			}
 
 			// defer clip.Rect{Max: image.Pt(10, 10)}.Push(&ops).Pop()
