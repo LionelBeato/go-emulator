@@ -41,19 +41,27 @@ func decode() {
 		OP_00E0()
 	case 0x1:
 		OP_1NNN()
+	case 0x3:
+		OP_3XNN()
 	case 0x6:
 		OP_6xNN()
 	case 0x7:
 		OP_7xNN()
 	case 0x8:
-		// switch (opCode & 0x00F) >> 12 {
-		// case 0x81:
-		// 	OP_8XY1()
-		// case 0x82:
-		// 	OP_8XY2()
-		// case 0x85:
-		// 	OP_8XY5()
-		// }
+		switch opCode & 0x000F {
+		case 0x1:
+			OP_8XY1()
+		case 0x2:
+			println("inside 2 case!")
+			OP_8XY2()
+		case 0x3:
+			println("inside 3 case!")
+			OP_8XY3()
+		case 0x4:
+			OP_8XY4()
+		case 0x5:
+			OP_8XY5()
+		}
 	case 0xA:
 		OP_ANNN()
 	case 0xD:

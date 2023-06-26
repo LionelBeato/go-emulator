@@ -20,7 +20,7 @@ func OP_1NNN() {
 	currentInstruction = opCode & 0xFFF
 }
 
-// set register VX
+// set register VX to NN
 func OP_6xNN() {
 	byt := opCode & 0x00FF
 	VX = (opCode & 0xFFF) >> 8
@@ -39,11 +39,25 @@ func OP_00EE() {
 }
 
 func OP_ANNN() {
-	indexRegister.value = uint16(opCode & 0xFFF)
+	// 	uint16_t address = opcode & 0x0FFFu;
+	// index = address;
+	// addr := (opCode & 0x0FFF) >> 8
+	indexRegister.value = uint16(opCode & 0x0FFF)
 }
 
 func OP_3XNN() {
+	// 	uint8_t Vx = (opcode & 0x0F00u) >> 8u;
+	// uint8_t byte = opcode & 0x00FFu;
 
+	// if (registers[Vx] == byte)
+	// {
+	// pc += 2;
+	// }
+	VX = (opCode & 0x0F00) >> 8
+	byt := opCode & 0x00FF
+	if registers[VX].value == byte(byt) {
+		currentInstruction += 2
+	}
 }
 
 func OP_4XNN() {
@@ -73,9 +87,14 @@ func OP_8XY1() {
 // 8XY2: Binary AND
 // VX is set to the bitwise/binary logical conjunction (AND) of VX and VY. VY is not affected.
 func OP_8XY2() {
-	VX = (opCode & 0xF00) >> 8
-	VY = (opCode & 0x00F0) >> 4
+	registers[VX].value = registers[VX].value & registers[VY].value
+}
 
+func OP_8XY3() {
+	registers[VX].value = registers[VX].value & registers[VY].value
+}
+
+func OP_8XY4() {
 	registers[VX].value = registers[VX].value & registers[VY].value
 }
 
@@ -102,7 +121,7 @@ func OP_DXYN() {
 	for row := 0; row < height; row++ {
 		spriteByte := mem[indexRegister.value+uint16(row)]
 		for col := 0; col < 8; col++ {
-			spritePixel := spriteByte & (0x80 >> col)
+			spritePixel := spriteByte & (0x0080 >> col)
 			r := (int(yPos) + row)
 			c := (int(xPos) + col)
 
@@ -120,6 +139,6 @@ func OP_DXYN() {
 
 func OP_7xNN() {
 	byt := opCode & 0x00FF
-	VX = (opCode & 0xFFF) >> 8
+	VX = (opCode & 0x0FFF) >> 8
 	registers[VX].value = (registers[VX].value + byte(byt))
 }
