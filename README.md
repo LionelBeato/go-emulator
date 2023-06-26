@@ -6,7 +6,7 @@ Currently outputs the following in your terminal:
 
 ![](./ibm.png)
 
-# How to run
+## How to run
 
 If you have Go installed you may run this application with the following command at the root of this project:
 
